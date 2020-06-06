@@ -1,0 +1,126 @@
+&calculation
+  theory='single_scale_maxwell_tddft'
+  yn_md='y'
+!  theory="dft"
+!  yn_opt='y'
+/
+
+&control
+  yn_gbp = 'n'
+  sysname = 'SiO2'
+  directory_read_data = '../1_run_wo_pulse/checkpoint_rt_004000'
+  yn_restart = 'y'
+  yn_reset_step_restart = 'y'
+!(for reading)
+!  method_wf_distributor = 'slice'
+!  nblock_wf_distribute = 32
+!(for writing)
+  checkpoint_interval = 4000
+  yn_self_checkpoint = 'y'
+/
+
+&parallel
+  process_allocation = 'grid_sequential'
+!  yn_scalapack='y'
+  yn_ffte = 'y'
+  nproc_k = 1
+  nproc_ob = 288
+  nproc_rgrid =   8, 6, 8
+/
+
+&units
+  unit_system='A_eV_fs'
+/
+
+&system
+  yn_periodic = 'y'
+  al = 39.475144393672d0,   51.279722491977d0,  86.413254912378d0
+! # of electrons: Si=>4, O=>6, H=>1
+    nstate= 28416
+    nelec = 53280
+    nelem = 3
+    natom = 10224
+/
+
+&pseudo
+  iZatom(1)=14
+  file_pseudo(1) = './Si_rps.dat'
+  Lloc_ps(1)=2
+  iZatom(2)=8
+  file_pseudo(2) = './O_rps.dat'
+  Lloc_ps(2)=1
+  iZatom(3)=1
+  file_pseudo(3) = './H_rps.dat'
+  Lloc_ps(3)=1
+/
+
+&functional
+  xc ='PZ'
+/
+
+&rgrid
+!dr=0.183A (for FFTE: 0.183A, 0.178A, 0.18A))
+!  num_rgrid = 54, 96, 480
+  num_rgrid = 216,  288,  480
+/
+
+&kgrid
+  num_kgrid = 1,1,1
+!  file_kw = "k2x1x1.dat"
+/
+
+&tgrid
+!4.5fs
+ dt=0.00075d0
+ nt=8000
+ gram_schmidt_interval = 500000
+/
+
+&propagation
+  n_hamil = 8
+/
+
+&scf
+  method_init_wf='gauss5'
+!  iseed_number_change = 100
+  ncg_init= 5
+  ncg     = 5
+  alpha_mb  = 0.05d0
+  nmemory_mb= 4
+  threshold=1d-8
+  nscf = 150
+!  step_initial_mix_zero = 80
+/
+
+&ewald
+  newald = 1
+  cutoff_r_buff= 1.5d0
+  cutoff_g = 30.0d0
+/
+
+&md
+  ensemble = "NVE"
+  step_update_ps =  25
+!  yn_set_ini_velocity = 'y'
+!  temperature0_ion_k  = 298.15d0
+  yn_stop_system_momt = 'n'
+/
+
+&emfield
+  ae_shape1 = 'Acos2'
+  epdir_re1 = 1.0d0, 0.0d0, 0.0d0
+  I_wcm2_1  = 1d14
+  omega1    = 3.10d0
+  tw1       = 10.0d0
+/
+
+&analysis
+!(output for movie every 0.0525 fs)
+  yn_out_dns_ac_je = 'y'
+  out_dns_ac_je_step = 4000
+!  out_dns_ac_je_step = 70
+!(output every 0.105 fs)
+  yn_out_rvf_rt = 'y'
+  out_rvf_rt_step = 70
+/
+

@@ -7,6 +7,8 @@
 - `strong-scaling/`
     - The strong scalability check to 6912-27648 compute nodes.
     - Before the evaluation, the GS part should be executed at `weak-scaling/n06912`.
+- `production-run/`
+    - 10224 atoms simulation. (Single-scale Maxwell-TDDFT + MD)
 
 ## IMPORTANT NOTICE
 
