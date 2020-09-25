@@ -1,0 +1,40 @@
+diff --git a/src/common/hamiltonian.f90 b/src/common/hamiltonian.f90
+index 68bc37f..71590a1 100644
+--- a/src/common/hamiltonian.f90
++++ b/src/common/hamiltonian.f90
+@@ -467,7 +467,7 @@ contains
+           ie(2) = ie(2) - 4
+       end select
+
+-!$omp do collapse(4) schedule(dynamic,1)
++!!$omp do collapse(4) schedule(dynamic,1)
+       do io=io_s,io_e
+       do ispin=1,Nspin
+       do ibz=ibs(3),ibe(3),nzblk
+@@ -492,7 +492,7 @@ contains
+       end do
+       end do
+       end do
+-!$omp end do nowait
++!!$omp end do nowait
+     end do
+ !$omp end parallel
+     call timer_end  (LOG_UHPSI_OVL_PHASE4)
+@@ -622,7 +622,7 @@ contains
+
+       do im=im_s,im_e
+       do ik=ik_s,ik_e
+-!$omp do collapse(4) schedule(dynamic,1)
++!!$omp do collapse(4) schedule(dynamic,1)
+       do io=io_s,io_e
+       do ispin=1,Nspin
+       do ibz=ibs(3),ibe(3),nzblk
+@@ -639,7 +639,7 @@ contains
+       end do
+       end do
+       end do
+-!$omp end do nowait
++!!$omp end do nowait
+       end do
+       end do
+     end do
