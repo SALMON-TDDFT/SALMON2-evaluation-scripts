@@ -4,6 +4,8 @@
     - A build script for the system optimized application.
 - `bulkSi/`
     - bulk Sillicon simulation is based on exercises 4 and 6.
+- `SiO2/`
+    - SiO2 simulation for supercomputer Cygnus@CCS, U. Tsukuba.
 
 ## IMPORTANT NOTICE
 
