@@ -20,6 +20,6 @@ cd ${PBS_O_WORKDIR}
   cat /etc/redhat-release
   cat /proc/cpuinfo | grep 'model name' | head -n1
   echo "`grep physical.id /proc/cpuinfo | sort -u | wc -l` socket"
-  ifort --version
+  mpiifort --version
   mpirun -hostfile ${PBS_NODEFILE} -np 2 -perhost 2 ${SALMON} < ${INPUTFILE}
 } |& tee ${LOGFILE}
