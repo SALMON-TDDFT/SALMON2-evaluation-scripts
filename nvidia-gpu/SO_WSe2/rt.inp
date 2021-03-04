@@ -1,0 +1,82 @@
+&calculation
+!  theory = 'dft'
+  theory = 'tddft_pulse'
+/
+
+&parallel
+   nproc_ob = 1
+   nproc_k = 1
+   nproc_rgrid(1)= 1
+   nproc_rgrid(2)= 1
+   nproc_rgrid(3)= 1
+/
+
+&control
+  sysname = 'SO'
+  !yn_restart = 'y'
+  !read_gs_restart_data = 'rho_inout' 
+/
+
+&units
+  unit_system = 'A_eV_fs'
+/
+
+&scf
+  method_init_wf = 'random'
+  nscf = 500
+  method_mixing ='simple'
+  mixrate = 0.1
+  threshold=1.0d-8
+/
+
+&tgrid
+  dt=1.25d-4
+!  Nt=15000
+  nt=2000
+/
+
+&emfield
+  ae_shape1 = 'Acos2'
+  I_wcm2_1 = 1d9
+  tw1 = 18.d0
+  omega1=3.5d0
+  epdir_re1 = 1.d0,0.d0,0.d0
+/
+
+&system
+  yn_periodic = 'y'
+  al_vec1 =  2.8752043406,   -1.660000000,   0.0000000
+  al_vec2 =  0.0000000000,    3.320000000,   0.0000000
+  al_vec3 =  0.0000000000,    0.000000000,   18.0000000
+  nelec = 24
+  nstate = 25
+  nelem = 2
+  natom = 3
+  spin  = 'polarized'
+  yn_spinorbit = 'y'
+  temperature_k=100
+/
+
+&pseudo
+  izatom = 74,34
+  file_pseudo = 'W_PBE19.vps','Se_PBE19.vps'
+  lloc_ps = 3,2
+/
+
+&functional
+  xc = 'PZ'
+/
+
+&rgrid
+  num_rgrid = 16, 16, 90
+/
+
+&kgrid
+  num_kgrid = 8, 8, 1
+/
+
+&atomic_coor
+'W'  1.916475 0.0000 3.2400 1
+'Se' 3.833525 0.0000 1.5696 2
+'Se' 3.833525 0.0000 4.9104 2
+/
